@@ -56,7 +56,7 @@ public class VolunteerSignup extends AppCompatActivity {
             emailtxt.requestFocus();
             emailtxt.setError("FIELD CANNOT BE EMPTY");
         }
-        else if(!email.matches("^\\w+@[a-zA-Z_]+?"+"\\.[a-zA-Z]{2,3}$")) {
+        else if(!email.matches("^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$")) {
             isEmail = false;
             emailtxt.requestFocus();
             emailtxt.setError("ENTER CORRECT EMAIL ID");

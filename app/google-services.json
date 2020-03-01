@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "931268301211",
+    "firebase_url": "https://keralafloodrescue-e647f.firebaseio.com",
+    "project_id": "keralafloodrescue-e647f",
+    "storage_bucket": "keralafloodrescue-e647f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931268301211:android:f52c92a9ac44608e90d13e",
+        "android_client_info": {
+          "package_name": "com.example.keralafloodrescue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931268301211-jm3e76oa3fl4l69hl2k72i4h40nvpvl0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzJdYgm1SgfNJ3fCS1DKEyVBpyP9XD5l8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931268301211-jm3e76oa3fl4l69hl2k72i4h40nvpvl0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
