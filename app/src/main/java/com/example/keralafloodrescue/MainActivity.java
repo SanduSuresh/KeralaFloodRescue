@@ -29,5 +29,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        volunteerbtn = (Button) findViewById(R.id.volunteerBtn);
+        volunteerbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),VolunteerLogin.class);
+                startActivity(i);
+            }
+        });
     }
 }
