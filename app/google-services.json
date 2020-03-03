@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:931268301211:android:f52c92a9ac44608e90d13e",
+        "mobilesdk_app_id": "1:931268301211:android:d5430f4aa585e51c90d13e",
         "android_client_info": {
           "package_name": "com.example.keralafloodrescue"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "931268301211-f2oc4uttmsm7jaj429akq4k4ual0tbon.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.keralafloodrescue",
+            "certificate_hash": "ac1717384754b37a6c9a5c3e2e037fc3ff4d07b1"
+          }
+        },
         {
           "client_id": "931268301211-jm3e76oa3fl4l69hl2k72i4h40nvpvl0.apps.googleusercontent.com",
           "client_type": 3
