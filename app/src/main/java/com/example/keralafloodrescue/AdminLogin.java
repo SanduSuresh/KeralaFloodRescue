@@ -4,9 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,9 +25,10 @@ import com.google.firebase.database.ValueEventListener;
 public class AdminLogin extends AppCompatActivity {
     Button loginbtn;
     EditText emailtxt,passtxt;
+    CheckBox cbshowhide;
     boolean isEmail,isPass;
 
-
+    private static Animation shakeAnimation;
 
     //Firebase Database instance creation
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -38,7 +45,16 @@ public class AdminLogin extends AppCompatActivity {
         loginbtn = (Button) findViewById(R.id.loginBtn);
         emailtxt = (EditText) findViewById(R.id.emailText);
         passtxt = (EditText) findViewById(R.id.passwordText);
+        cbshowhide = (CheckBox) findViewById(R.id.cbShowHide);
 
+        shakeAnimation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.shake);
+
+        cbshowhide.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showPasswordChange(buttonView,isChecked);
+            }
+        });
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +113,28 @@ public class AdminLogin extends AppCompatActivity {
         if(emailtxt.getText().toString().equals(name)&&passtxt.getText().toString().equals(password)) {
             Intent i = new Intent(getApplicationContext(), AdminHome.class);
             startActivity(i);
+        }
+        else {
+                loginbtn.startAnimation(shakeAnimation);
+                Toast.makeText(getApplicationContext(),"Incorrect Email or Password",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void showPasswordChange(CompoundButton cButton,boolean isChecked)
+    {
+        // If Checkbox is checked then show password else hide password
+        if (isChecked) {
+            // change checkbox text
+            cbshowhide.setText(R.string.hide_pwd);
+            // show password
+            passtxt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        }
+        else {
+            // change checkbox text
+            cbshowhide.setText(R.string.show_pwd);
+            // hide password
+            passtxt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
         }
     }
 }
