@@ -1,16 +1,32 @@
 package com.example.keralafloodrescue;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class VolunteerSignup extends AppCompatActivity {
     EditText nametxt,emailtxt,mobtxt,loctxt,passtxt,cpasstxt;
     Button signupbtn;
     boolean isName,isEmail,isMob,isLoc,isPass,isCpass;
+    int volunteer_count,flag;
+    //Firebase Database instance creation
+    private FirebaseDatabase mAuthDB = FirebaseDatabase.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,13 +38,47 @@ public class VolunteerSignup extends AppCompatActivity {
         passtxt = (EditText) findViewById(R.id.passwordText);
         cpasstxt = (EditText) findViewById(R.id.cpasswordText);
         signupbtn = (Button) findViewById(R.id.signupBtn);
+
         signupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signUpValidation();
+                addVolunteerData();
+
             }
         });
     }
+
+    public void addVolunteerData() {
+        //Database Reference
+        DatabaseReference myRef = mAuthDB.getReference("volunteers");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                volunteer_count = Integer.parseInt((String) dataSnapshot.child("count").getValue());
+                flag = 1;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("Error","VolSignUpError");
+            }
+        });
+
+        //Adding Data
+        DatabaseReference volunteerRef = myRef.child("volunteer:"+(volunteer_count+1));
+        // Map<k,v> Stores Data in Key Value Pair
+        Map<String,String> volunteerDetails = new HashMap<>();
+        volunteerDetails.put("FullName",nametxt.getText().toString());
+        volunteerDetails.put("Email_Id",emailtxt.getText().toString());
+        volunteerDetails.put("Mobile_No",mobtxt.getText().toString());
+        volunteerDetails.put("Location",loctxt.getText().toString());
+        volunteerDetails.put("Password",passtxt.getText().toString());
+
+        volunteerRef.setValue(volunteerDetails);
+        myRef.child("count").setValue(String.valueOf(volunteer_count+1));
+    }
+
     public void signUpValidation()
     {
         final String name = nametxt.getText().toString();
@@ -117,4 +167,6 @@ public class VolunteerSignup extends AppCompatActivity {
             isCpass = true;
         }
     }
+
+
 }
