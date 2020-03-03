@@ -17,7 +17,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class VolunteerSignup extends AppCompatActivity {
     EditText nametxt,emailtxt,mobtxt,loctxt,passtxt,cpasstxt;
@@ -50,22 +49,23 @@ public class VolunteerSignup extends AppCompatActivity {
     }
 
     public void addVolunteerData() {
-        //Database Reference
+        //Database Reference Creation
         DatabaseReference myRef = mAuthDB.getReference("volunteers");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Taking the count of volunteers
                 volunteer_count = Integer.parseInt((String) dataSnapshot.child("count").getValue());
                 flag = 1;
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("Error","VolSignUpError");
+                    Log.d("Error","VolunteerSignUpError");
             }
         });
 
-        //Adding Data
+        //Adding Data to volunteer
         DatabaseReference volunteerRef = myRef.child("volunteer:"+(volunteer_count+1));
         // Map<k,v> Stores Data in Key Value Pair
         Map<String,String> volunteerDetails = new HashMap<>();
