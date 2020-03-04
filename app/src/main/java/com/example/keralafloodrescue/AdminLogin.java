@@ -92,16 +92,23 @@ public class AdminLogin extends AppCompatActivity {
     }
 
     public void adminLogin() {
-        //myRef.child("admin1").child("name").setValue("unni");
-        //myRef.child("admin1").child("pass").setValue("123");
+        //myRef.child("admin1").child("name").setValue("admin@admin.com");
+        //myRef.child("admin1").child("pass").setValue("admin123");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                name = (String) dataSnapshot.child("admin1").child("name").getValue();
-                password = (String) dataSnapshot.child("admin1").child("pass").getValue();
+                if(emailtxt.getText().toString().equals(dataSnapshot.child("admin1").child("name").getValue().toString())&&passtxt.getText().toString().equals(dataSnapshot.child("admin1").child("pass").getValue().toString())) {
+                    Intent i = new Intent(getApplicationContext(), AdminHome.class);
+                    startActivity(i);
+                }
+                else {
+                    loginbtn.startAnimation(shakeAnimation);
+                    Toast.makeText(getApplicationContext(),"Invalid Credentials",Toast.LENGTH_SHORT).show();
+                }
+
             }
 
             @Override
@@ -110,14 +117,8 @@ public class AdminLogin extends AppCompatActivity {
                 Log.d("Error","AdminLoginError");
             }
         });
-        if(emailtxt.getText().toString().equals(name)&&passtxt.getText().toString().equals(password)) {
-            Intent i = new Intent(getApplicationContext(), AdminHome.class);
-            startActivity(i);
-        }
-        else {
-                loginbtn.startAnimation(shakeAnimation);
-                Toast.makeText(getApplicationContext(),"Incorrect Email or Password",Toast.LENGTH_SHORT).show();
-        }
+        Log.d("Checking","check : "+password);
+
     }
 
     public void showPasswordChange(CompoundButton cButton,boolean isChecked)

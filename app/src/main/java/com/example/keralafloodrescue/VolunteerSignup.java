@@ -22,7 +22,7 @@ public class VolunteerSignup extends AppCompatActivity {
     EditText nametxt,emailtxt,mobtxt,loctxt,passtxt,cpasstxt;
     Button signupbtn;
     boolean isName,isEmail,isMob,isLoc,isPass,isCpass;
-    int volunteer_count,flag;
+    int volunteer_count;
     //Firebase Database instance creation
     private FirebaseDatabase mAuthDB = FirebaseDatabase.getInstance();
 
@@ -43,7 +43,6 @@ public class VolunteerSignup extends AppCompatActivity {
             public void onClick(View v) {
                 signUpValidation();
                 addVolunteerData();
-
             }
         });
     }
@@ -56,7 +55,6 @@ public class VolunteerSignup extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Taking the count of volunteers
                 volunteer_count = Integer.parseInt((String) dataSnapshot.child("count").getValue());
-                flag = 1;
             }
 
             @Override
