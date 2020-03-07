@@ -132,8 +132,8 @@ public class VolunteerSignup extends AppCompatActivity {
         }
         if(loc.isEmpty()) {
             isLoc = false;
-            loctxt.requestFocus();
-            loctxt.setError("FIELD CANNOT BE EMPTY");
+            mobtxt.requestFocus();
+            mobtxt.setError("FIELD CANNOT BE EMPTY");
         }
         else {
             isLoc = true;
