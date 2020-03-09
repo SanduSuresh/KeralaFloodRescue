@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,12 +18,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
-public class VolunteerSignup extends AppCompatActivity {
+public class VolunteerSignup extends AppCompatActivity  {
     EditText nametxt,emailtxt,mobtxt,loctxt,passtxt,cpasstxt;
     Button signupbtn;
     boolean isName,isEmail,isMob,isLoc,isPass,isCpass;
-    int volunteer_count;
+    int volunteer_count,flag=0;
     //Firebase Database instance creation
     private FirebaseDatabase mAuthDB = FirebaseDatabase.getInstance();
 
@@ -41,13 +43,17 @@ public class VolunteerSignup extends AppCompatActivity {
         signupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signUpValidation();
-                addVolunteerData();
+                try {
+                    signUpValidation();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //addVolunteerData();
             }
         });
     }
 
-    public void addVolunteerData() {
+    public void addVolunteerData() throws InterruptedException {
         //Database Reference Creation
         DatabaseReference myRef = mAuthDB.getReference("volunteers");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -55,13 +61,17 @@ public class VolunteerSignup extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Taking the count of volunteers
                 volunteer_count = Integer.parseInt((String) dataSnapshot.child("count").getValue());
+                flag=1;
+                Log.d("Error","VolunteerSignUpError"+flag);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.d("Error","VolunteerSignUpError");
+                    Log.d("Error","VolunteerSignUpError"+flag);
             }
         });
+        time();
+        flag=0;
 
         //Adding Data to volunteer
         DatabaseReference volunteerRef = myRef.child("volunteer:"+(volunteer_count+1));
@@ -77,8 +87,7 @@ public class VolunteerSignup extends AppCompatActivity {
         myRef.child("count").setValue(String.valueOf(volunteer_count+1));
     }
 
-    public void signUpValidation()
-    {
+    public void signUpValidation() throws InterruptedException {
         final String name = nametxt.getText().toString();
         final String email = emailtxt.getText().toString();
         final String mob = mobtxt.getText().toString();
@@ -164,7 +173,15 @@ public class VolunteerSignup extends AppCompatActivity {
         else {
             isCpass = true;
         }
+
+        if(isName && isEmail && isMob && isLoc && isPass && isCpass) {
+            addVolunteerData();
+        }
     }
 
-
+    public void time() throws InterruptedException {
+        if (flag==0) {
+            TimeUnit.SECONDS.sleep(5);
+        }
+    }
 }
