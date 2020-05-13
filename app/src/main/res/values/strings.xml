@@ -21,6 +21,10 @@
     <string name="submit">SUBMIT</string>
     <string name="back">BACK</string>
     <string name="title_activity_victim_home">VictimHome</string>
+    <string name="Submit">Submit</string>
+    <string name="evacuation_needed">Evacuation Needed</string>
+    <string name="medicines_needed">Medicines Needed</string>
+    <string name="food_needed">Food Needed</string>
 
     <string-array name="districts">
         <item>--Disrict--</item>

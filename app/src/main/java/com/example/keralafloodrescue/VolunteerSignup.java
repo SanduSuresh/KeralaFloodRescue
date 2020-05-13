@@ -58,7 +58,7 @@ public class VolunteerSignup extends AppCompatActivity  {
                 volunteer_count = Integer.parseInt((String) Objects.requireNonNull(dataSnapshot.child("count").getValue()));
 
                 //Adding Data to volunteer
-                DatabaseReference volunteerRef = myRef.child("volunteer:"+(volunteer_count+1));
+                DatabaseReference volunteerRef = myRef.child("volunteer:" + (volunteer_count + 1));
                 // Map<k,v> Stores Data in Key Value Pair
                 Map<String,String> volunteerDetails = new HashMap<>();
                 volunteerDetails.put("FullName",nametxt.getText().toString());
@@ -69,7 +69,7 @@ public class VolunteerSignup extends AppCompatActivity  {
 
                 volunteerRef.setValue(volunteerDetails);
                 myRef.child("count").setValue(String.valueOf(volunteer_count+1));
-                Log.d("Error","VolunteerSignUpError"+flag);
+                //Log.d("Error","VolunteerSignUpError"+flag);
             }
 
             @Override
