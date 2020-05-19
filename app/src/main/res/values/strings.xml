@@ -26,21 +26,11 @@
     <string name="medicines_needed">Medicines Needed</string>
     <string name="food_needed">Food Needed</string>
 
-    <string-array name="districts">
-        <item>--Disrict--</item>
-        <item>Kasaragod</item>
-        <item>Kannur</item>
-        <item>Wayanad</item>
-        <item>Kozhikode</item>
-        <item>Malappuram</item>
-        <item>Palakkad</item>
-        <item>Thrissur</item>
-        <item>Ernakulam</item>
-        <item>Idukki</item>
-        <item>Kottayam</item>
-        <item>Alappuzha</item>
-        <item>Pathanamthitta</item>
-        <item>Kollam</item>
-        <item>Thiruvananthapuram</item>
-    </string-array>
+    <string name="title_activity_maps">Current Place Details</string>
+    <string name="default_info_title">Default Location</string>
+    <string name="default_info_snippet">No places found, because location permission is disabled.</string>
+    <string name="option_get_place">Get place</string>
+    <string name="pick_place">Choose a place</string>
+
+    <string name="title_activity_current_location_maps">Map</string>
 </resources>

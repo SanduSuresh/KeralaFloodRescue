@@ -3,6 +3,7 @@ package com.example.keralafloodrescue;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ import java.util.Objects;
 
 public class VictimReport extends AppCompatActivity {
     EditText nametxt,mobtxt,loctxt,disttxt;
+    ImageButton locbtn;
     Button submitbtn;
     //CheckBox evaccheck,medcheck,foodcheck;
     boolean isName,isMob,isLoc,isDist;
@@ -41,9 +44,18 @@ public class VictimReport extends AppCompatActivity {
         loctxt = (EditText) findViewById(R.id.locText);
         disttxt = (EditText) findViewById(R.id.distText);
         submitbtn = (Button) findViewById(R.id.submitBtn);
+        locbtn = (ImageButton) findViewById(R.id.locbtn);
         //evaccheck = (CheckBox) findViewById(R.id.checkBox);
         //medcheck = (CheckBox) findViewById(R.id.checkBox2);
         //foodcheck = (CheckBox) findViewById(R.id.checkBox3);
+
+        locbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),CurrentLocationMapsActivity.class);
+                startActivity(i);
+            }
+        });
 
         submitbtn.setOnClickListener(new View.OnClickListener() {
             @Override
