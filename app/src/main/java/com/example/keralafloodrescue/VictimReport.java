@@ -52,7 +52,7 @@ public class VictimReport extends AppCompatActivity {
         locbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),CurrentLocationMapsActivity.class);
+                Intent i = new Intent(getApplicationContext(),CurrentLocation.class);
                 startActivity(i);
             }
         });
